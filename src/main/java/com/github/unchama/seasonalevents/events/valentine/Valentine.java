@@ -202,7 +202,7 @@ public class Valentine implements Listener {
 
 	// チョコレート配布
 	public static void giveChoco(Player player) {
-		if (!Util.isPlayerInventryFill(player)) {
+		if (!Util.isPlayerInventoryFull(player)) {
 			Util.addItem(player, makeChoco(player));
 		} else {
 			Util.dropItem(player, makeChoco(player));
