@@ -25,7 +25,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.github.unchama.seasonalevents.SeasonalEvents;
 import com.github.unchama.seichiassist.SeichiAssist;
 import com.github.unchama.seichiassist.data.Mana;
-import com.github.unchama.seichiassist.data.PlayerData;
+import com.github.unchama.seichiassist.data.player.PlayerData;
 
 public class Seizonsiki implements Listener {
 	private static boolean isdrop = false;
@@ -105,11 +105,12 @@ public class Seizonsiki implements Listener {
 	// アイテム使用時の処理
 	private void usePrize(Player player) {
 		UUID uuid = player.getUniqueId();
-		PlayerData pd = SeichiAssist.playermap.get(uuid);
-		Mana mana = pd.activeskilldata.mana;
+		PlayerData pd = SeichiAssist.playermap().getOrElse(uuid, () -> null);
+		if (pd == null) return;
+		Mana mana = pd.manaState();
 
-		double max = mana.calcMaxManaOnly(player, pd.level);
-		mana.increaseMana(max * 0.1, player, pd.level);
+		double max = mana.calcMaxManaOnly(player, pd.level());
+		mana.increase(max * 0.1, player, pd.level());
 		player.playSound(player.getLocation(),Sound.ENTITY_WITCH_DRINK, 1.0F, 1.2F);
 	}
 

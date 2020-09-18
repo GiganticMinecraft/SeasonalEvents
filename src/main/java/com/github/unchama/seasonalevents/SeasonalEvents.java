@@ -18,8 +18,6 @@ public class SeasonalEvents extends JavaPlugin {
 		new Seizonsiki(this);
 		// バレンタインイベント
 		new Valentine(this);
-
-		// System.out.println("debug");
 	}
 
 	@Override
